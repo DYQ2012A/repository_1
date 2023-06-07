@@ -1,0 +1,45 @@
+package com.example.demo.controller;
+
+import com.example.demo.mapper.UserMapper;
+import com.example.demo.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+    @Autowired
+    private UserMapper userMapper;
+
+    @RequestMapping("/test")
+    public String test(){
+        return "Hello World!";
+    }
+
+    @GetMapping("/")
+    public List<User> findAll() {
+        return userMapper.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public User findById(@PathVariable Long id) {
+        return userMapper.findById(id);
+    }
+
+    @PostMapping("/")
+    public void save(@RequestBody User user) {
+        userMapper.save(user);
+    }
+
+    @PutMapping("/")
+    public void update(@RequestBody User user) {
+        userMapper.update(user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userMapper.delete(id);
+    }
+}
